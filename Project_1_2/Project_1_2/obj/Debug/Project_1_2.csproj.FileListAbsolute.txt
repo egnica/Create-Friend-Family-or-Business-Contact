@@ -1,0 +1,6 @@
+c:\users\egnnica\documents\visual studio 2017\Projects\Project_1_2\Project_1_2\obj\Debug\Project_1_2.csprojResolveAssemblyReference.cache
+c:\users\egnnica\documents\visual studio 2017\Projects\Project_1_2\Project_1_2\bin\Debug\Project_1_2.exe.config
+c:\users\egnnica\documents\visual studio 2017\Projects\Project_1_2\Project_1_2\bin\Debug\Project_1_2.exe
+c:\users\egnnica\documents\visual studio 2017\Projects\Project_1_2\Project_1_2\bin\Debug\Project_1_2.pdb
+c:\users\egnnica\documents\visual studio 2017\Projects\Project_1_2\Project_1_2\obj\Debug\Project_1_2.exe
+c:\users\egnnica\documents\visual studio 2017\Projects\Project_1_2\Project_1_2\obj\Debug\Project_1_2.pdb
