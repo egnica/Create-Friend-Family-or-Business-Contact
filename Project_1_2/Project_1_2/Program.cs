@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp13
 {
+    /*
+     * Name: Nick Egner
+     * Date: 10.2.2019
+     * Homework 01-2
+     */
     class Program
     {
         static void Main(string[] args)
@@ -22,7 +27,13 @@ namespace ConsoleApp13
             Console.Write("Choose item 1, 2, or 3: ");
             selectNumber = Convert.ToInt32(Console.ReadLine());
 
-            while (selectNumber == 1 || selectNumber == 2 && selectNumber != 3)
+            while(selectNumber != 1 && selectNumber != 2 && selectNumber != 3)
+            {
+                Console.Write("Please enter a valid number");
+                selectNumber = Convert.ToInt32(Console.ReadLine());
+            }
+
+            while (selectNumber == 1 || selectNumber == 2 || selectNumber == 3)
             {
                 if (selectNumber == 1)
                 {
@@ -39,13 +50,15 @@ namespace ConsoleApp13
                     selectNumber = Convert.ToInt32(Console.ReadLine());
                 }
              
-                else
+                else if (selectNumber == 3)
                 {
-                    Console.Write("Please enter a valid number: ");
-                    selectNumber = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Thanks for using the program");
+                    Environment.Exit(0);
                 }
 
             }
+
+
 
         }//end of main method
 
@@ -94,7 +107,7 @@ namespace ConsoleApp13
             {
                 contact.state = "N/A";
             }
-            Console.Write("Zip Code (or enter if no zipcode: )");
+            Console.Write("Zip Code (or enter if no zipcode): ");
             contact.zipCode = Console.ReadLine();
             if (contact.zipCode == "")
             {
@@ -154,50 +167,45 @@ namespace ConsoleApp13
                 friend.relationship = Console.ReadLine();
             }
 
-
-            Console.Write("Month of Birthday 1-12 (or Enter if not entering a birthday): ");
-            friend.birthdayMonth = Convert.ToInt32(Console.ReadLine());
-            monthString = friend.birthdayMonth.ToString();
-
-            while (friend.birthdayMonth > 13 && friend.birthdayMonth < 1)
+            Console.Write("Month of birthday 1-12 (or enter if not entering a birthday): ");
+            monthString = Console.ReadLine();
+            if (monthString != "")
             {
-                Console.Write("Please enter a number between 1-12");
-                friend.birthdayMonth = Convert.ToInt32(Console.ReadLine());
-            }
-            if (monthString == "")
-            {
-                friend.birthdayMonth = 0;
-            }
-            else
-            {
-                Console.Write("Day of Birthday 1-31: ");
-                friend.birthdayDay = Convert.ToInt32(Console.ReadLine());
-                while (friend.birthdayDay > 31 && friend.birthdayDay < 1)
+                friend.birthdayMonth = Convert.ToInt32(monthString);
+                while( friend.birthdayMonth > 12 || friend.birthdayMonth < 1)
                 {
-                    Console.Write("Please enter a date between 1 and 31: ");
-                    friend.birthdayDay = Convert.ToInt32(Console.ReadLine());
-                }
-                Console.Write("4-digit year of birthday: ");
-                friend.birthdayYear = Convert.ToInt32(Console.ReadLine());
+                    Console.Write("Please enter a valid month: ");
+                    friend.birthdayMonth = Convert.ToInt32(Console.ReadLine());
 
-                while (friend.birthdayYear > 2020 || friend.birthdayYear < 1900)
-                {
-                    Console.Write("Please enter a valad birth year: ");
-                    friend.birthdayYear = Convert.ToInt32(Console.ReadLine());
                 }
-                string year = friend.birthdayYear.ToString();
-                string month = friend.birthdayMonth.ToString();
-                if(month != "12" || month !="11" || month != "10")
+                string month = Convert.ToString(friend.birthdayMonth);
+                if(month.Length == 1)
                 {
                     month = "0" + month;
                 }
-             
-                string day = friend.birthdayDay.ToString();
 
-                if (day.Length == 1)
+                Console.Write("Day of birthday, between 1-31 (req'd): ");
+                friend.birthdayDay = Convert.ToInt32(Console.ReadLine());
+                while(friend.birthdayDay < 1 || friend.birthdayDay > 31)
+                {
+                    Console.Write("Please enter a valid day: ");
+                    friend.birthdayDay = Convert.ToInt32(Console.ReadLine());
+                }
+                string day = Convert.ToString(friend.birthdayDay);
+                if(day.Length == 1)
                 {
                     day = "0" + day;
                 }
+                Console.Write("4-digit Year of Birthday (req'd)");
+                friend.birthdayYear = Convert.ToInt32(Console.ReadLine());
+                while(friend.birthdayYear > 2020 || friend.birthdayYear < 1900)
+                {
+                    Console.Write("Please enter a valid year: ");
+                    friend.birthdayYear = Convert.ToInt32(Console.ReadLine());
+                }
+                string year = Convert.ToString(friend.birthdayYear);
+
+
 
                 string date = year + month + day;
                 int dateInt = Convert.ToInt32(date);
@@ -205,8 +213,13 @@ namespace ConsoleApp13
                 friend.birthday = yourDateTime;
                 DateTime tenDayReminder = friend.birthday.AddDays(-10);
                 friend.tenDayReminder = tenDayReminder;
-
             }
+            else
+            {
+                friend.birthdayMonth = 0;
+                
+            }
+            
             FriendFamilyPrint(contact, friend);
             WriteToFileFriendFamily(contact, friend);
 
@@ -240,7 +253,7 @@ namespace ConsoleApp13
             contact.address = Console.ReadLine();
             while (contact.address == "")
             {
-                Console.Write("An address must be entered");
+                Console.Write("An address must be entered: ");
                 contact.address = Console.ReadLine();
             }
 
@@ -248,7 +261,7 @@ namespace ConsoleApp13
             contact.city = Console.ReadLine();
             while (contact.city == "")
             {
-                Console.Write("A city must be entered");
+                Console.Write("A city must be entered: ");
                 contact.city = Console.ReadLine();
             }
             Console.Write("State (or enter if N/A): ");
@@ -334,6 +347,7 @@ namespace ConsoleApp13
             streamWriter.WriteLine($"Company: {company.company}");
             streamWriter.WriteLine($"Position: {company.position}");
             streamWriter.WriteLine($"Email: {company.email}");
+            streamWriter.WriteLine("----------------------------------------------");
 
             streamWriter.Close();
             fileStream.Close();
@@ -371,8 +385,12 @@ namespace ConsoleApp13
             Console.WriteLine($"Cell number: {contact.phoneCell}");
             Console.WriteLine(" ");
             Console.WriteLine($"Relationship: {friends.relationship}");
-            Console.WriteLine($"Birthday: {friends.birthday}");
-            Console.WriteLine($"10 days before birthday: {friends.tenDayReminder}");
+            if(friends.birthdayMonth != 0)
+            {
+                Console.WriteLine($"Birthday: {friends.birthday}");
+                Console.WriteLine($"10 days before birthday: {friends.tenDayReminder}");
+            }
+            
 
 
 
@@ -399,8 +417,12 @@ namespace ConsoleApp13
             streamWriter.WriteLine($"Cell number: {contact.phoneCell}");
             streamWriter.WriteLine(" ");
             streamWriter.WriteLine($"Relationship: {friends.relationship}");
-            streamWriter.WriteLine($"Birthday: {friends.birthday}");
-            streamWriter.WriteLine($"10 days before birthday: {friends.tenDayReminder}");
+            if(friends.birthdayMonth != 0)
+            {
+                streamWriter.WriteLine($"Birthday: {friends.birthday}");
+                streamWriter.WriteLine($"10 days before birthday: {friends.tenDayReminder}");
+            }
+            
             streamWriter.WriteLine("----------------------------------------------");
 
             streamWriter.Close();
